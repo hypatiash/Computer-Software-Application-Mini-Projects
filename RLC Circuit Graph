@@ -1,0 +1,8 @@
+E=10; R=1; C=1; L=1; 
+t=[0:0.01:1];
+vct=dsolve('D2v=-Dv-v+10','Dv(0)=0,v(0)=0');
+fplot(vct,[0 20])
+axis([0 20 0 20])
+grid on
+ylabel('v(t)')
+xlabel('time(seconds)')
