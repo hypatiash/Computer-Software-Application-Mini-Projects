@@ -1,0 +1,53 @@
+        % Code that executes after component creation
+        function startupFcn(app)
+            app.Switch.Items = {'Off', 'On'};
+            app.Switch.Value="Off";
+            app.Lamp.Color= [0.8 0.8 0.8];
+            xlabel(app.UIAxes,'Time(seconds)')
+            ylabel(app.UIAxes,'u(t)')
+            
+        end
+
+        % Value changed function: ExitButton
+        function ExitButtonValueChanged(app, event)
+            value = app.ExitButton.Value;
+            close(app.UIFigure);
+            
+        end
+
+        % Value changed function: PlotSineWaveButton
+        function PlotSineWaveButtonValueChanged(app, event)
+            value = app.PlotSineWaveButton.Value;
+            iv=app.EditField.Value;
+            fv=app.EditField_2.Value;
+            ne=app.EditField_3.Value;
+            A= app.ASlider.Value;
+            x=iv:ne:fv;
+            u= A*sin(x);
+
+            plot(app.UIAxes,x,u,"LineWidth",1,"LineStyle","-","Color","r")
+            xlabel(app.UIAxes,'Time(seconds)')
+            ylabel(app.UIAxes,'u(t)')
+            
+
+
+        end
+
+        % Value changing function: ASlider
+        function ASliderValueChanging(app, event)
+            changingValue = event.Value;
+           app.Gauge.Value=changingValue;
+        end
+
+        % Value changed function: Switch
+        function SwitchValueChanged(app, event)
+            value = app.Switch.Value;
+            
+            if strcmp(value, 'On')
+                app.Lamp.Color=[0.47 0.67 0.19];
+                grid(app.UIAxes,"on")
+                
+            else
+                app.Lamp.Color=[0.8 0.8 0.80];
+                grid(app.UIAxes,"off")
+            end
